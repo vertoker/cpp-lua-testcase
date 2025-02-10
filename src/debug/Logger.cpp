@@ -7,32 +7,40 @@
 
 using namespace debug;
 
-std::ofstream Logger::file;
-std::mutex Logger::mutex;
-std::string Logger::utcOffset = "";
-unsigned Logger::moduleLen = 20;
-
 Logger::Logger(const std::string& name) : name(std::move(name)) { }
 
 Logger::~Logger() { }
 
-void Logger::init(std::string filename)
+void Logger::log(LogType type, const std::string& message)
 {
-    file.open(filename);
+    if (type == LogType::Print)
+    {
+        std::cout << "[" << name << "] - " << message << std::endl;
+        return;
+    }
 
-    time_t tm = std::time(nullptr);
     std::stringstream ss;
-    ss << std::put_time(std::localtime(&tm), "%z");
-    utcOffset = ss.str();
-}
+    switch (type)
+    {
+        case LogType::Info:
+            ss << "[I]";
+            break;
+        case LogType::Warning:
+            ss << "[W]";
+            break;
+        case LogType::Error:
+            ss << "[E]";
+            break;
+        case LogType::Debug:
+#ifdef NDEBUG
+            return;
+#endif
+            ss << "[D]";
+            break;
+    }
 
-void Logger::flush()
-{
-    std::lock_guard<std::mutex> lock(mutex);
-    file.flush();
-}
+    ss << " - " << message;
 
-void Logger::log(LogType type, std::string message)
-{
-    
+    auto str = ss.str();
+    std::cout << str << std::endl;
 }
