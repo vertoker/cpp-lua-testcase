@@ -7,39 +7,48 @@
 
 using namespace debug;
 
-Logger::Logger(const std::string& name) : name(std::move(name)) { }
+unsigned Logger::nameWidth = 10;
 
-Logger::~Logger() { }
+// LoggerStream
+
+debug::LoggerStream::LoggerStream(Logger *logger, LogType type)
+    : logger(logger), type(type) { }
+
+debug::LoggerStream::~LoggerStream()
+{
+    logger->log(type, ss.str());
+}
+
+// Logger
+
+Logger::Logger(std::string name) : name(std::move(name)) {}
 
 void Logger::log(LogType type, const std::string& message)
 {
-    if (type == LogType::Print)
-    {
-        std::cout << "[" << name << "] - " << message << std::endl;
-        return;
-    }
-
     std::stringstream ss;
     switch (type)
     {
         case LogType::Info:
-            ss << "[I]";
+            ss << "[I] ";
             break;
         case LogType::Warning:
-            ss << "[W]";
+            ss << "[W] ";
             break;
         case LogType::Error:
-            ss << "[E]";
+            ss << "[E] ";
             break;
         case LogType::Debug:
 #ifdef NDEBUG
             return;
 #endif
-            ss << "[D]";
+            ss << "[D] ";
             break;
     }
 
-    ss << " - " << message;
+    ss << "[";
+    ss << std::setfill(' ') << std::setw(nameWidth) << name;
+    ss << "] - ";
+    ss << message;
 
     auto str = ss.str();
     std::cout << str << std::endl;
