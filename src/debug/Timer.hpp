@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <string>
+#include <stdfloat>
 
 namespace debug
 {
@@ -27,12 +28,20 @@ namespace debug
         inline TimePoint_t   stopPoint () noexcept { return stopTime;             }
         inline Nanoseconds_t duration  () noexcept { return stopTime - startTime; }
 
-        inline int64_t nanoseconds () noexcept { return std::chrono::duration_cast<Nanoseconds_t> (duration()).count(); }
-        inline int64_t microseconds() noexcept { return std::chrono::duration_cast<Microseconds_t>(duration()).count(); }
-        inline int64_t milliseconds() noexcept { return std::chrono::duration_cast<Milliseconds_t>(duration()).count(); }
-        inline int64_t seconds     () noexcept { return std::chrono::duration_cast<Seconds_t>     (duration()).count(); }
-        inline int64_t minutes     () noexcept { return std::chrono::duration_cast<Minutes_t>     (duration()).count(); }
-        inline int64_t hours       () noexcept { return std::chrono::duration_cast<Hours_t>       (duration()).count(); }
+        // https://en.wikipedia.org/wiki/Metric_prefix
+        inline double nanoseconds_cast () noexcept { return std::chrono::duration_cast<Nanoseconds_t> (duration()).count(); }
+        inline double microseconds_cast() noexcept { return std::chrono::duration_cast<Microseconds_t>(duration()).count(); }
+        inline double milliseconds_cast() noexcept { return std::chrono::duration_cast<Milliseconds_t>(duration()).count(); }
+        inline double seconds_cast     () noexcept { return std::chrono::duration_cast<Seconds_t>     (duration()).count(); }
+        inline double minutes_cast     () noexcept { return std::chrono::duration_cast<Minutes_t>     (duration()).count(); }
+        inline double hours_cast       () noexcept { return std::chrono::duration_cast<Hours_t>       (duration()).count(); }
+
+        inline double nanoseconds () noexcept { return duration().count() / 1.0; }
+        inline double microseconds() noexcept { return duration().count() / 1000.0; }
+        inline double milliseconds() noexcept { return duration().count() / 1000000.0; }
+        inline double seconds     () noexcept { return duration().count() / 1000000000.0; }
+        inline double minutes     () noexcept { return duration().count() / 1000000000000.0; }
+        inline double hours       () noexcept { return duration().count() / 1000000000000000.0; }
 
     private:
         TimePoint_t startTime;

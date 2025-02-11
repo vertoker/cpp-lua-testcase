@@ -32,3 +32,14 @@ add_executable("${CMAKE_PROJECT_NAME}" "${INCLUDES}" "${SOURCES}")
 
 #file(GLOB_RECURSE SOURCES CMAKE_CONFIGURE_DEPENDS "src/*.h" "src/*.c" "src/*.hpp" "src/*.cpp")
 #add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
+
+#--------------------------------------------------------------------------------
+# Libraries
+#--------------------------------------------------------------------------------
+
+# Add Package libraries (vcpkg)
+find_package(Lua REQUIRED)
+
+# Link Package Libraries (vcpkg)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_LIBRARIES})

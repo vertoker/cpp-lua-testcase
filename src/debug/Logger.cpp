@@ -7,7 +7,7 @@
 
 using namespace debug;
 
-unsigned Logger::nameWidth = 10;
+unsigned Logger::nameWidth = 8;
 
 // LoggerStream
 
