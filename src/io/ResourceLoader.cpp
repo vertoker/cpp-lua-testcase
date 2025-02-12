@@ -16,14 +16,17 @@ std::string ResourceLoader::LoadContent(const std::string& path)
         return "";
     }
     
-    std::string buffer;
+    /*std::string buffer;
     ifs.seekg(0, std::ios::end);
     size_t size = ifs.tellg();
     buffer.reserve(size);
     ifs.seekg(0, std::ios::beg);
-    ifs.read(&buffer[0], size);
+    ifs.read(&buffer[0], size);*/
+
+    std::stringstream ss;
+    ss << ifs.rdbuf();
     
     ifs.close();
-    logger.info() << "load resource by path:" << path;
-    return buffer;
+    logger.info() << "load resource by path: res/" << path;
+    return ss.str();
 }

@@ -10,7 +10,7 @@
         {
             "name": "DebugBase",
             "hidden": true,
-            "binaryDir": "${sourceDir}/build/Debug",
+            "binaryDir": "${sourceDir}/out/Debug",
 
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
@@ -23,7 +23,7 @@
         {
             "name": "ReleaseBase",
             "hidden": true,
-            "binaryDir": "${sourceDir}/build/Release",
+            "binaryDir": "${sourceDir}/out/Release",
 
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",

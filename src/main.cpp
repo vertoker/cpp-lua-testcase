@@ -14,7 +14,7 @@ int main()
     
     io::ResourceLoader loader;
     auto data = loader.LoadContent("test.lua");
-    io::LuaScript script(std::move(data));
+    io::LuaScript script("test", std::move(data));
     script.execute();
 
     timer.stop();

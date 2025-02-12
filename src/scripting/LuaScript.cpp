@@ -6,7 +6,8 @@ using namespace io;
 
 static debug::Logger logger("lua");
 
-LuaScript::LuaScript(std::string script) : script(std::move(script))
+LuaScript::LuaScript(std::string name, std::string script)
+    : name(std::move(name)), script(std::move(script))
 {
     state = luaL_newstate();
     luaL_openlibs(state); // open standard Lua libs
@@ -18,6 +19,6 @@ LuaScript::~LuaScript()
 
 void LuaScript::execute()
 {
-    logger.info("execute Lua script");
+    logger.info() << "execute Lua script: " << name;
     luaL_dostring(state, script.c_str()); // execute Lua code
 }

@@ -1,5 +1,5 @@
 # Core for CMake auto-generated files
-/out
+out/
 bin/
 build/
 builds/

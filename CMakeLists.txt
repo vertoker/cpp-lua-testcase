@@ -5,19 +5,23 @@
 cmake_minimum_required(VERSION 3.20)
 project(CppLua)
 
-option(CPPLUA_BUILD_APPDIR "" OFF)
+option(CPPLUA_BUILD_APP "" ON)
 option(CPPLUA_BUILD_TESTS "" OFF)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if(CPPLUA_BUILD_APP)
+    include(${CMAKE_CURRENT_SOURCE_DIR}/dev/cmake/BuildApp.cmake)
+endif()
+
 #--------------------------------------------------------------------------------
-# Src & Include
+# Src & Inc
 #--------------------------------------------------------------------------------
 
 # Variables
-set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src") # /inc
 set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # Recurse collect every file in include/ and src/ folders
@@ -43,3 +47,8 @@ find_package(Lua REQUIRED)
 # Link Package Libraries (vcpkg)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_LIBRARIES})
+
+if(CPPLUA_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif()

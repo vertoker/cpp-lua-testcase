@@ -8,11 +8,12 @@ namespace io
 {
     class LuaScript
     {
+        std::string name;
         std::string script;
         lua_State* state;
 
     public:
-        LuaScript(std::string script);
+        LuaScript(std::string name, std::string script);
         ~LuaScript();
 
         LuaScript(const LuaScript&) = default;
