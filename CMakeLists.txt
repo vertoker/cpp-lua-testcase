@@ -48,6 +48,10 @@ find_package(Lua REQUIRED)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_LIBRARIES})
 
+#--------------------------------------------------------------------------------
+# Other
+#--------------------------------------------------------------------------------
+
 if(CPPLUA_BUILD_TESTS)
     enable_testing()
     add_subdirectory(test)

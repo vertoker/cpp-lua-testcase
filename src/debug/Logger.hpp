@@ -27,6 +27,8 @@ namespace debug
         LoggerStream(LoggerStream&&) = default;
         LoggerStream& operator=(const LoggerStream&) = default;
         LoggerStream& operator=(LoggerStream&&) = default;
+
+        inline LogType getType() const noexcept { return type; }
         
         template <class T>
         inline LoggerStream& operator<<(const T& x)
@@ -45,18 +47,22 @@ namespace debug
     public:
         Logger(std::string name);
 
-        void log(LogType type, const std::string& message);
+        void log(LogType type, const std::string& message) const;
 
-        inline void print   (const std::string& message) noexcept  { log(LogType::Print,   message); }
-        inline void info    (const std::string& message) noexcept  { log(LogType::Info,    message); }
-        inline void warning (const std::string& message) noexcept  { log(LogType::Warning, message); }
-        inline void error   (const std::string& message) noexcept  { log(LogType::Error,   message); }
-        inline void debug   (const std::string& message) noexcept  { log(LogType::Debug,   message); }
+        inline void print   (const std::string& message) const noexcept { log(LogType::Print,   message); }
+        inline void info    (const std::string& message) const noexcept { log(LogType::Info,    message); }
+        inline void warning (const std::string& message) const noexcept { log(LogType::Warning, message); }
+        inline void error   (const std::string& message) const noexcept { log(LogType::Error,   message); }
+        inline void debug   (const std::string& message) const noexcept { log(LogType::Debug,   message); }
 
         inline LoggerStream print()   noexcept { return LoggerStream(this, LogType::Print   ); }
         inline LoggerStream info()    noexcept { return LoggerStream(this, LogType::Info    ); }
         inline LoggerStream warning() noexcept { return LoggerStream(this, LogType::Warning ); }
         inline LoggerStream error()   noexcept { return LoggerStream(this, LogType::Error   ); }
         inline LoggerStream debug()   noexcept { return LoggerStream(this, LogType::Debug   ); }
+
+        inline static uint32_t getNameWidth() noexcept { return nameWidth; }
+
+        inline std::string getName() const noexcept { return name; }
     };
 } // namespace debug

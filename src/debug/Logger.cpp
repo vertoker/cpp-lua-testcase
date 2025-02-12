@@ -23,7 +23,7 @@ debug::LoggerStream::~LoggerStream()
 
 Logger::Logger(std::string name) : name(std::move(name)) {}
 
-void Logger::log(LogType type, const std::string& message)
+void Logger::log(LogType type, const std::string& message) const
 {
     std::stringstream ss;
     switch (type)

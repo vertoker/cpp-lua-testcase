@@ -4,6 +4,8 @@
 
 #include "scripting/LuaScript.hpp"
 
+#include <iostream>
+
 static debug::Logger logger("main");
 
 int main()
@@ -16,13 +18,13 @@ int main()
     auto data = loader.LoadContent("test.lua");
     io::LuaScript script("test", std::move(data));
     script.execute();
-
+    
     timer.stop();
     logger.info("End LuaCpp");
 
-    logger.debug() << "Time (microseconds): " << timer.microseconds(); // μs
-    logger.debug() << "Time (milliseconds): " << timer.milliseconds(); // ms
-    logger.debug() << "Time (seconds): " << timer.seconds(); // s
+    logger.info() << "Time (microseconds): " << timer.microseconds(); // μs
+    logger.info() << "Time (milliseconds): " << timer.milliseconds(); // ms
+    logger.info() << "Time (seconds): " << timer.seconds(); // s
 
     return 0;
 }
