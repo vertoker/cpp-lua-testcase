@@ -5,17 +5,14 @@
         "minor": 12,
         "patch": 0
     },
-
     "configurePresets": [
         {
             "name": "DebugBase",
             "hidden": true,
             "binaryDir": "${sourceDir}/out/Debug",
-
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "CMAKE_CXX_FLAGS": "-O0",
-
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install/Debug"
             }
@@ -24,23 +21,20 @@
             "name": "ReleaseBase",
             "hidden": true,
             "binaryDir": "${sourceDir}/out/Release",
-
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
                 "CMAKE_CXX_FLAGS": "-O3",
-
                 "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install/Release"
             }
         },
-        
-
         {
             "name": "Debug/Makefiles/GCC",
             "hidden": false,
-            "inherits": ["DebugBase"],
+            "inherits": [
+                "DebugBase"
+            ],
             "generator": "Unix Makefiles",
-
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"
@@ -49,21 +43,22 @@
         {
             "name": "Release/Makefiles/GCC",
             "hidden": false,
-            "inherits": ["ReleaseBase"],
+            "inherits": [
+                "ReleaseBase"
+            ],
             "generator": "Unix Makefiles",
-            
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"
             }
         },
-
         {
             "name": "Debug/Makefiles/clang",
             "hidden": false,
-            "inherits": ["DebugBase"],
+            "inherits": [
+                "DebugBase"
+            ],
             "generator": "Unix Makefiles",
-
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++"
@@ -72,22 +67,22 @@
         {
             "name": "Release/Makefiles/clang",
             "hidden": false,
-            "inherits": ["ReleaseBase"],
+            "inherits": [
+                "ReleaseBase"
+            ],
             "generator": "Unix Makefiles",
-            
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++"
             }
         },
-        
-
         {
             "name": "Debug/Ninja/GCC",
             "hidden": false,
-            "inherits": ["DebugBase"],
+            "inherits": [
+                "DebugBase"
+            ],
             "generator": "Ninja",
-
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"
@@ -96,21 +91,22 @@
         {
             "name": "Release/Ninja/GCC",
             "hidden": false,
-            "inherits": ["ReleaseBase"],
+            "inherits": [
+                "ReleaseBase"
+            ],
             "generator": "Ninja",
-            
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"
             }
         },
-
         {
             "name": "Debug/Ninja/clang",
             "hidden": false,
-            "inherits": ["DebugBase"],
+            "inherits": [
+                "DebugBase"
+            ],
             "generator": "Ninja",
-
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++"
@@ -119,13 +115,22 @@
         {
             "name": "Release/Ninja/clang",
             "hidden": false,
-            "inherits": ["ReleaseBase"],
+            "inherits": [
+                "ReleaseBase"
+            ],
             "generator": "Ninja",
-            
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++"
             }
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "Release/Makefiles/GCC",
+            "description": "",
+            "displayName": "",
+            "configurePreset": "Release/Makefiles/GCC"
         }
     ]
 }

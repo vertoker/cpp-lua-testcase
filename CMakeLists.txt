@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.20)
 project(CppLua)
 
 option(CPPLUA_BUILD_APP "" ON)
-option(CPPLUA_BUILD_TESTS "" OFF)
+option(CPPLUA_BUILD_TESTS "" ON)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

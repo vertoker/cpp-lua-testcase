@@ -26,3 +26,20 @@ TEST(Debug, Logger_Stream) {
     EXPECT_EQ(stream4.getType(), debug::LogType::Error);
     EXPECT_EQ(stream5.getType(), debug::LogType::Debug);
 }
+
+TEST(Debug, Logger_Print) {
+    std::string name = "321";
+    debug::Logger logger(std::move(name));
+
+    logger.print("print");
+    logger.info("info");
+    logger.warning("warning");
+    logger.error("error");
+    logger.debug("debug");
+
+    logger.print() << "stream print";
+    logger.info() << "stream info";
+    logger.warning() << "stream warning";
+    logger.error() << "stream error";
+    logger.debug() << "stream debug";
+}

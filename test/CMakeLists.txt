@@ -6,10 +6,10 @@ file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 
 find_package(GTest)
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(CppLuaTest ${SOURCES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../src)
-target_link_libraries(${PROJECT_NAME} CppLua GTest::gtest_main)
+target_include_directories(CppLuaTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../src)
+target_link_libraries(CppLuaTest CppLua GTest::gtest GTest::gtest_main GTest::gmock GTest::gmock_main)
 
 # HACK: copy res to test/ folder for fixing problem compatibility MultiConfig
 # and non MultiConfig builds. Delete in future and use only root res folder Also
@@ -22,4 +22,5 @@ target_link_libraries(${PROJECT_NAME} CppLua GTest::gtest_main)
 #            ${CMAKE_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res)
 
 include(GoogleTest)
-gtest_discover_tests(${PROJECT_NAME})
+#gtest_discover_tests(${PROJECT_NAME})
+add_test(NAME CppLuaTest COMMAND CppLuaTest)
