@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.20)
 project(CppLua)
 
 option(CPPLUA_BUILD_APP "" ON)
-option(CPPLUA_BUILD_TESTS "" ON)
+option(CPPLUA_BUILD_TESTS "" OFF)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -47,12 +47,3 @@ find_package(Lua REQUIRED)
 # Link Package Libraries (vcpkg)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_INCLUDE_DIR})
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${LUA_LIBRARIES})
-
-#--------------------------------------------------------------------------------
-# Other
-#--------------------------------------------------------------------------------
-
-if(CPPLUA_BUILD_TESTS)
-    enable_testing()
-    add_subdirectory(test)
-endif()

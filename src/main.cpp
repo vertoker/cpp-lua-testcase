@@ -2,7 +2,7 @@
 #include "debug/Timer.hpp"
 #include "io/ResourceLoader.hpp"
 
-#include "scripting/LuaScript.hpp"
+#include "scripting/LuaState.hpp"
 
 #include <iostream>
 
@@ -15,9 +15,11 @@ int main()
     timer.start();
     
     io::ResourceLoader loader;
-    auto data = loader.LoadContent("test.lua");
-    io::LuaScript script("test", std::move(data));
-    script.execute();
+    auto data = loader.LoadContent("main.lua");
+    LuaState state("main", std::move(data));
+    
+    state.Execute();
+    state.ProcessFunctions();
     
     timer.stop();
     logger.info("End LuaCpp");
