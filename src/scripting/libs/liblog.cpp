@@ -1,7 +1,7 @@
 #include "API.hpp"
 #include "../../debug/Logger.hpp"
 
-static debug::Logger logger("lua");
+static debug::Logger logger("lib-log");
 
 static int l_logprint(const char* name)
 {

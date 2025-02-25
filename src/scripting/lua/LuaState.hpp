@@ -1,19 +1,15 @@
 #pragma once
 
-#include <string>
-
 #include <lua.hpp>
 
-#include "LuaUtil.hpp"
+#include "LuaCommon.hpp"
 
 class LuaState
 {
-    std::string name;
-    std::string script;
     lua::State* state;
 
 public:
-    LuaState(std::string name, std::string script);
+    LuaState();
     ~LuaState();
 
     LuaState(const LuaState&) = default;
@@ -21,6 +17,5 @@ public:
     LuaState& operator=(const LuaState&) = default;
     LuaState& operator=(LuaState&&) = default;
 
-    void Execute();
-    void ProcessFunctions();
+    inline lua::State* getState() const { return state; }
 };

@@ -5,4 +5,5 @@
 
 #include "../LuaUtil.hpp"
 
-extern const luaL_Reg loglib[];
+extern const luaL_Reg liblog[];
+extern const luaL_Reg libscript[];
