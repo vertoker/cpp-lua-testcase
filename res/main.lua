@@ -11,4 +11,4 @@ function onDispose()
     log.info("onDispose - loglib")
 end
 
-print('Hi from Lua')
+print('Hi from main.lua')
