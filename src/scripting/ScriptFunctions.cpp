@@ -3,7 +3,7 @@
 #include "../debug/Logger.hpp"
 static debug::Logger logger("functions");
 
-lua::Number script::add(const LuaState& state, const lua::Number a, const lua::Number b)
+lua::Number script::add(lua::State* state, const lua::Number a, const lua::Number b)
 {
     if (!lua::TryGetGlobal(state, "add")) return 0;
     
@@ -16,12 +16,12 @@ lua::Number script::add(const LuaState& state, const lua::Number a, const lua::N
     return result;
 }
 
-void script::onInitialize(const LuaState& state)
+void script::onInitialize(lua::State* state)
 {
     if (lua::TryGetGlobal(state, "onInitialize"))
         lua::call(state);
 }
-void script::onDispose(const LuaState& state)
+void script::onDispose(lua::State* state)
 {
     if (lua::TryGetGlobal(state, "onDispose"))
         lua::call(state);

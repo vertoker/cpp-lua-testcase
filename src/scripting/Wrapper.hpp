@@ -1,9 +1,9 @@
 #pragma once
 
-#include "lua/LuaWrapper.hpp"
+#include "lua/LuaStateObject.hpp"
 
 namespace lua
 {
-    bool TryGetGlobal(const LuaState& state, const std::string& name);
+    bool TryGetGlobal(lua::State* state, const std::string& name);
     
 } // namespace lua

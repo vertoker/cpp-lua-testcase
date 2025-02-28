@@ -2,62 +2,71 @@
 
 #include <lua.hpp>
 
-#include "LuaState.hpp"
+#include "LuaCommon.hpp"
 
 #include <string>
 
 namespace lua
 {
-    inline void execute(const LuaState& state, const std::string& str)
-    {
-        luaL_dostring(state.getState(), str.c_str());
-    }
+    inline void execute(lua::State* state, const std::string& str)
+        { luaL_dostring(state, str.c_str()); }
 
-    inline void getglobal(const LuaState& state, const char* str)
-    {
-        lua_getglobal(state.getState(), str);
-    }
+    inline void getglobal(lua::State* state, const char* str)
+        { lua_getglobal(state, str); }
+    inline void setglobal(lua::State* state, const char* str)
+        { lua_setglobal(state, str); }
     
-    inline bool isnil(const LuaState& state)
+    inline bool isnil(lua::State* state)
+        { return lua_isnil(state, -1); }
+
+    inline void pushnumber(lua::State* state, lua::Number number)
     {
-        return lua_isnil(state.getState(), -1);
+        return lua_pushnumber(state, number);
+    }
+    inline void pushinteger(lua::State* state, lua::Integer integer)
+    {
+        return lua_pushinteger(state, integer);
+    }
+    inline void pushboolean(lua::State* state, bool boolean)
+    {
+        return lua_pushboolean(state, boolean);
     }
 
-    inline void pushnumber(const LuaState& state, lua::Number number)
+    inline void call(lua::State* state, int numArgs = 0, int numResults = 0)
     {
-        return lua_pushnumber(state.getState(), number);
-    }
-    inline void pushinteger(const LuaState& state, lua::Integer integer)
-    {
-        return lua_pushinteger(state.getState(), integer);
-    }
-    inline void pushboolean(const LuaState& state, bool boolean)
-    {
-        return lua_pushboolean(state.getState(), boolean);
+        lua_call(state, numArgs, numResults);
     }
 
-    inline void call(const LuaState& state, int numArgs = 0, int numResults = 0)
+    inline lua::Number tonumber(lua::State* state, int stackIndex = -1)
     {
-        lua_call(state.getState(), numArgs, numResults);
+        return lua_tonumber(state, stackIndex);
+    }
+    inline lua::Integer tointeger(lua::State* state, int stackIndex = -1)
+    {
+        return lua_tointeger(state, stackIndex);
+    }
+    inline bool toboolean(lua::State* state, int stackIndex = -1)
+    {
+        return lua_toboolean(state, stackIndex);
+    }
+    inline const char* tostring(lua::State* L, int stackIndex = -1)
+    {
+        return lua_tostring(L, stackIndex);
     }
 
-    inline lua::Number tonumber(const LuaState& state, int stackIndex = -1)
+    inline void pop(lua::State* state, int count = 1)
     {
-        return lua_tonumber(state.getState(), stackIndex);
-    }
-    inline lua::Integer tointeger(const LuaState& state, int stackIndex = -1)
-    {
-        return lua_tointeger(state.getState(), stackIndex);
-    }
-    inline bool toboolean(const LuaState& state, int stackIndex = -1)
-    {
-        return lua_toboolean(state.getState(), stackIndex);
+        return lua_pop(state, count);
     }
 
-    inline void pop(const LuaState& state, int count = 1)
-    {
-        return lua_pop(state.getState(), count);
+    inline void createtable(lua::State* state, int narr = 0, int nrec = 0) {
+        lua_createtable(state, narr, nrec);
     }
+    inline void setfuncs(lua::State* state, const luaL_Reg* lib, int nup = 0) {
+        luaL_setfuncs(state, lib, nup);
+    }
+
+    void openlib(lua::State* state, const std::string& name, const luaL_Reg* lib);
 
 } // namespace lua
 

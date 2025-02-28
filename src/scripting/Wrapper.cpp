@@ -3,7 +3,7 @@
 #include "../debug/Logger.hpp"
 static debug::Logger logger("lua-wrapper");
 
-bool lua::TryGetGlobal(const LuaState& state, const std::string& name)
+bool lua::TryGetGlobal(lua::State* state, const std::string& name)
 {
     lua::getglobal(state, name.c_str());
     if (lua::isnil(state))

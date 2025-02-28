@@ -3,12 +3,13 @@
 #include "io/ResourceLoader.hpp"
 
 #include "scripting/ScriptFunctions.hpp"
+//#include "scripting/lua/LuaCommon.hpp"
 
 #include <iostream>
 
 static debug::Logger logger("main");
 
-void runScript(const LuaState& state);
+void runScript(lua::State* state);
 
 int main()
 {
@@ -19,8 +20,9 @@ int main()
     io::ResourceLoader loader;
     auto data = loader.LoadContent("main.lua");
 
-    LuaState state;
-    lua::execute(state, data);
+    LuaStateObject stateObject;
+    lua::State* state = stateObject.getState();
+    lua::execute(state, std::move(data));
 
     script::onInitialize(state);
     runScript(state);
@@ -36,7 +38,7 @@ int main()
     return 0;
 }
 
-void runScript(const LuaState& state)
+void runScript(lua::State* state)
 {
     logger.info() << script::add(state, 4, 5);
 }

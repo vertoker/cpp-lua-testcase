@@ -1,13 +1,13 @@
-print('Hi from Lua')
-
 function add(a, b)
     return a + b
 end
 
 function onInitialize()
-    print("initialize")
+    log.info("onInitialize - loglib")
 end
 
 function onDispose()
-    print("dispose")
+    log.info("onDispose - loglib")
 end
+
+print('Hi from Lua')
