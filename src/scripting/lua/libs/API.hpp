@@ -5,5 +5,5 @@
 
 #include "../LuaWrapper.hpp"
 
-extern const luaL_Reg loglib[];
-extern const luaL_Reg scriptlib[];
+extern const luaL_Reg LogLib[];
+extern const luaL_Reg ScriptLib[];

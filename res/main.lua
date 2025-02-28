@@ -4,6 +4,7 @@ end
 
 function onInitialize()
     log.info("onInitialize - loglib")
+    script.load("test.lua")
 end
 
 function onDispose()

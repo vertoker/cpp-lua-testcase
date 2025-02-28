@@ -2,8 +2,7 @@
 #include "debug/Timer.hpp"
 #include "io/ResourceLoader.hpp"
 
-#include "scripting/ScriptFunctions.hpp"
-//#include "scripting/lua/LuaCommon.hpp"
+#include "scripting/Scripting.hpp"
 
 #include <iostream>
 
@@ -24,9 +23,9 @@ int main()
     lua::State* state = stateObject.getState();
     lua::execute(state, std::move(data));
 
-    script::onInitialize(state);
+    scripting::initialize(state);
     runScript(state);
-    script::onDispose(state);
+    scripting::dispose();
     
     timer.stop();
     logger.info("End LuaCpp");
@@ -40,5 +39,5 @@ int main()
 
 void runScript(lua::State* state)
 {
-    logger.info() << script::add(state, 4, 5);
+    logger.info() << scripting::add(state, 4, 5);
 }

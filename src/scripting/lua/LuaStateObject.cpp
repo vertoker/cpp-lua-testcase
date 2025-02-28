@@ -28,7 +28,7 @@ LuaStateObject& LuaStateObject::operator=(LuaStateObject&& other)
 
 void LuaStateObject::CreateLibs()
 {
-    luaL_openlibs(state);
-    lua::openlib(state, "log", loglib);
-    lua::openlib(state, "script", scriptlib);
+    lua::openlibs(state);
+    lua::openlib(state, "log", LogLib);
+    lua::openlib(state, "script", ScriptLib);
 }

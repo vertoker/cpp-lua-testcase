@@ -2,21 +2,22 @@
 #include "../../../debug/Logger.hpp"
 
 #include "../../../io/ResourceLoader.hpp"
-#include "../LuaWrapper.hpp"
+#include "../../Scripting.hpp"
 
 static debug::Logger logger("script-lib");
+io::ResourceLoader loader;
 
-static int l_loadscript(const char* name)
+static int l_loadscript(lua_State* state)
 {
-    std::stringstream ss;
-    ss << name << ".lua";
+    auto name = lua::tostring(state, 1);
 
-    io::ResourceLoader loader;
-    auto data = loader.LoadContent(ss.str());
+    auto data = loader.LoadContent(name);
+    lua::execute(scripting::state, std::move(data));
     
     return 0;
 }
 
-const luaL_Reg scriptlib[] = {
+const luaL_Reg ScriptLib[] = {
+    { "load", l_loadscript },
     { NULL, NULL }
 };

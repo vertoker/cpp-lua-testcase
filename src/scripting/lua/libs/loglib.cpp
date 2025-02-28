@@ -34,7 +34,7 @@ int l_logdebug(lua_State* state)
     return 0;
 }
 
-const luaL_Reg loglib[] = {
+const luaL_Reg LogLib[] = {
     { "print", l_logprint },
     { "info", l_loginfo },
     { "warning", l_logwarning },

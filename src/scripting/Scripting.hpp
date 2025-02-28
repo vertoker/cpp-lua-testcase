@@ -2,11 +2,12 @@
 
 #include "Wrapper.hpp"
 
-namespace script {
+namespace scripting {
+    extern lua::State* state;
 
     lua::Number add(lua::State* state, const lua::Number a, const lua::Number b);
 
-    void onInitialize(lua::State* state);
-    void onDispose(lua::State* state);
+    void initialize(lua::State* newState);
+    void dispose();
 
 } // namespace script

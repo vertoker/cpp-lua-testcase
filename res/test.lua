@@ -1,1 +1,1 @@
-print('Hi from Lua')
+print('Hi from test.lua')

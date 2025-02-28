@@ -1,9 +1,11 @@
-#include "ScriptFunctions.hpp"
+#include "Scripting.hpp"
 
 #include "../debug/Logger.hpp"
 static debug::Logger logger("functions");
 
-lua::Number script::add(lua::State* state, const lua::Number a, const lua::Number b)
+lua::State* scripting::state = nullptr;
+
+lua::Number scripting::add(lua::State* state, const lua::Number a, const lua::Number b)
 {
     if (!lua::TryGetGlobal(state, "add")) return 0;
     
@@ -16,13 +18,15 @@ lua::Number script::add(lua::State* state, const lua::Number a, const lua::Numbe
     return result;
 }
 
-void script::onInitialize(lua::State* state)
+void scripting::initialize(lua::State* newState)
 {
+    state = newState;
     if (lua::TryGetGlobal(state, "onInitialize"))
         lua::call(state);
 }
-void script::onDispose(lua::State* state)
+void scripting::dispose()
 {
     if (lua::TryGetGlobal(state, "onDispose"))
         lua::call(state);
+    state = nullptr;
 }
