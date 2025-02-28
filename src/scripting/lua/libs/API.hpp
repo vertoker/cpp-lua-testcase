@@ -3,7 +3,7 @@
 #include <exception>
 #include <string>
 
-#include "../LuaUtil.hpp"
+#include "../LuaWrapper.hpp"
 
 extern const luaL_Reg liblog[];
 extern const luaL_Reg libscript[];

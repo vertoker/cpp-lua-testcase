@@ -5,14 +5,24 @@ static debug::Logger logger("functions");
 
 lua::Number script::add(const LuaState& state, const lua::Number a, const lua::Number b)
 {
-    lua::GetGlobal(state, "add");
+    if (!lua::TryGetGlobal(state, "add")) return 0;
     
-    
-    /*logger.info() << "process functions in Lua script: " << name;
-    lua_getglobal(state, "add");
-    lua_pushnumber(state, 10);
-    lua_pushnumber(state, 20);
-    lua_call(state, 2, 1);
-    logger.info() << lua_tonumber(state, -1);
-    lua_pop(state, 1);*/
+    lua::pushnumber(state, a);
+    lua::pushnumber(state, b);
+    lua::call(state, 2, 1);
+
+    auto result = lua::tonumber(state);
+    lua::pop(state);
+    return result;
+}
+
+void script::onInitialize(const LuaState& state)
+{
+    if (lua::TryGetGlobal(state, "onInitialize"))
+        lua::call(state);
+}
+void script::onDispose(const LuaState& state)
+{
+    if (lua::TryGetGlobal(state, "onDispose"))
+        lua::call(state);
 }

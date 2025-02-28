@@ -4,6 +4,10 @@ function add(a, b)
     return a + b
 end
 
-function on_timer(time)
-    print(time)
+function onInitialize()
+    print("initialize")
+end
+
+function onDispose()
+    print("dispose")
 end

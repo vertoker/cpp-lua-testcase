@@ -2,11 +2,13 @@
 #include "debug/Timer.hpp"
 #include "io/ResourceLoader.hpp"
 
-#include "scripting/LuaWrapper.hpp"
+#include "scripting/ScriptFunctions.hpp"
 
 #include <iostream>
 
 static debug::Logger logger("main");
+
+void runScript(const LuaState& state);
 
 int main()
 {
@@ -19,7 +21,10 @@ int main()
 
     LuaState state;
     lua::execute(state, data);
-    
+
+    script::onInitialize(state);
+    runScript(state);
+    script::onDispose(state);
     
     timer.stop();
     logger.info("End LuaCpp");
@@ -29,4 +34,9 @@ int main()
     logger.info() << "Time (seconds): " << timer.seconds(); // s
 
     return 0;
+}
+
+void runScript(const LuaState& state)
+{
+    logger.info() << script::add(state, 4, 5);
 }

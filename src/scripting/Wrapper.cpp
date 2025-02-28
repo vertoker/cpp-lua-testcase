@@ -3,9 +3,13 @@
 #include "../debug/Logger.hpp"
 static debug::Logger logger("lua-wrapper");
 
-void lua::GetGlobal(const LuaState& state, const std::string& name)
+bool lua::TryGetGlobal(const LuaState& state, const std::string& name)
 {
     lua::getglobal(state, name.c_str());
     if (lua::isnil(state))
-        logger.warning() << "Can't find global " << name;
+    {
+        logger.warning() << "Can't find global \"" << name << "\"";
+        return false;
+    }
+    return true;
 }

@@ -4,6 +4,6 @@
 
 namespace lua
 {
-    void GetGlobal(const LuaState& state, const std::string& name);
+    bool TryGetGlobal(const LuaState& state, const std::string& name);
     
 } // namespace lua
